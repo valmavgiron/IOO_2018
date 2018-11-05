@@ -13,5 +13,6 @@ public class CertificadoMedico {
 		this.fechaCertificado = fechaCertificado;
 		this.medico = medico;
 		this.observaciones = observaciones;
+		
 	}
 }
