@@ -11,6 +11,8 @@ public class CertificadoMedidoView {
 
 	private JFrame frame;
 	private JTextField txtCert;
+	private JTextField txtMedico;
+	private JTextField txtObs;
 
 	/**
 	 * Launch the application.
@@ -55,6 +57,27 @@ public class CertificadoMedidoView {
 		springLayout.putConstraint(SpringLayout.WEST, txtCert, 33, SpringLayout.EAST, lblFechaCertificado);
 		frame.getContentPane().add(txtCert);
 		txtCert.setColumns(10);
+		
+		JLabel lblMedico = new JLabel("Medico");
+		springLayout.putConstraint(SpringLayout.NORTH, lblMedico, 34, SpringLayout.SOUTH, lblFechaCertificado);
+		springLayout.putConstraint(SpringLayout.WEST, lblMedico, 0, SpringLayout.WEST, lblFechaCertificado);
+		frame.getContentPane().add(lblMedico);
+		
+		txtMedico = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, txtMedico, 0, SpringLayout.NORTH, lblMedico);
+		springLayout.putConstraint(SpringLayout.EAST, txtMedico, 0, SpringLayout.EAST, txtCert);
+		frame.getContentPane().add(txtMedico);
+		txtMedico.setColumns(10);
+		
+		JLabel lblObservaciones = new JLabel("Observaciones");
+		springLayout.putConstraint(SpringLayout.NORTH, lblObservaciones, 37, SpringLayout.SOUTH, lblMedico);
+		springLayout.putConstraint(SpringLayout.WEST, lblObservaciones, 0, SpringLayout.WEST, lblFechaCertificado);
+		frame.getContentPane().add(lblObservaciones);
+		
+		txtObs = new JTextField();
+		springLayout.putConstraint(SpringLayout.WEST, txtObs, 0, SpringLayout.WEST, txtCert);
+		springLayout.putConstraint(SpringLayout.SOUTH, txtObs, 0, SpringLayout.SOUTH, lblObservaciones);
+		frame.getContentPane().add(txtObs);
+		txtObs.setColumns(10);
 	}
-
 }
