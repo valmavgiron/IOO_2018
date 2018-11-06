@@ -18,6 +18,7 @@ public class SocioView {
 	private JTextField txtDomicio;
 	private JTextField txtTelefono;
 	private JTextField txtEmail;
+	private JTextField txtIdSocio;
 
 	/**
 	 * Launch the application.
@@ -48,67 +49,68 @@ public class SocioView {
 	private void initialize() {
 		frmNuevoSocio = new JFrame();
 		frmNuevoSocio.setTitle("Nuevo Socio");
-		frmNuevoSocio.setBounds(100, 100, 505, 446);
+		frmNuevoSocio.setBounds(100, 100, 450, 403);
 		frmNuevoSocio.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
 		frmNuevoSocio.getContentPane().setLayout(springLayout);
 		
 		txtNombre = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, txtNombre, 27, SpringLayout.NORTH, frmNuevoSocio.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, txtNombre, 141, SpringLayout.WEST, frmNuevoSocio.getContentPane());
 		frmNuevoSocio.getContentPane().add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		springLayout.putConstraint(SpringLayout.NORTH, lblNombre, 30, SpringLayout.NORTH, frmNuevoSocio.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, lblNombre, 10, SpringLayout.WEST, frmNuevoSocio.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, txtNombre, -3, SpringLayout.NORTH, lblNombre);
 		frmNuevoSocio.getContentPane().add(lblNombre);
 		
 		JLabel lblApellido = new JLabel("Apellido");
-		springLayout.putConstraint(SpringLayout.NORTH, lblApellido, 24, SpringLayout.SOUTH, lblNombre);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblNombre, -25, SpringLayout.NORTH, lblApellido);
+		springLayout.putConstraint(SpringLayout.WEST, lblApellido, 0, SpringLayout.WEST, lblNombre);
 		frmNuevoSocio.getContentPane().add(lblApellido);
 		
 		JLabel lblTelefono = new JLabel("Telefono");
+		springLayout.putConstraint(SpringLayout.WEST, lblTelefono, 5, SpringLayout.WEST, frmNuevoSocio.getContentPane());
 		frmNuevoSocio.getContentPane().add(lblTelefono);
 		
 		JLabel lblDomicilio = new JLabel("Domicilio");
-		springLayout.putConstraint(SpringLayout.NORTH, lblTelefono, 22, SpringLayout.SOUTH, lblDomicilio);
-		springLayout.putConstraint(SpringLayout.NORTH, lblDomicilio, 24, SpringLayout.SOUTH, lblApellido);
+		springLayout.putConstraint(SpringLayout.WEST, lblDomicilio, 7, SpringLayout.WEST, frmNuevoSocio.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, lblDomicilio, -22, SpringLayout.NORTH, lblTelefono);
 		frmNuevoSocio.getContentPane().add(lblDomicilio);
 		
 		txtApellido = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, txtApellido, 21, SpringLayout.SOUTH, txtNombre);
+		springLayout.putConstraint(SpringLayout.WEST, txtApellido, 94, SpringLayout.EAST, lblApellido);
+		springLayout.putConstraint(SpringLayout.NORTH, lblApellido, 3, SpringLayout.NORTH, txtApellido);
+		springLayout.putConstraint(SpringLayout.WEST, txtNombre, 0, SpringLayout.WEST, txtApellido);
 		frmNuevoSocio.getContentPane().add(txtApellido);
 		txtApellido.setColumns(10);
 		
 		txtDomicio = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, txtDomicio, 15, SpringLayout.SOUTH, txtApellido);
+		springLayout.putConstraint(SpringLayout.SOUTH, txtApellido, -17, SpringLayout.NORTH, txtDomicio);
+		springLayout.putConstraint(SpringLayout.NORTH, txtDomicio, -3, SpringLayout.NORTH, lblDomicilio);
+		springLayout.putConstraint(SpringLayout.WEST, txtDomicio, 94, SpringLayout.EAST, lblDomicilio);
 		frmNuevoSocio.getContentPane().add(txtDomicio);
 		txtDomicio.setColumns(10);
 		
 		txtTelefono = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, txtTelefono, 19, SpringLayout.SOUTH, txtDomicio);
+		springLayout.putConstraint(SpringLayout.NORTH, txtTelefono, -3, SpringLayout.NORTH, lblTelefono);
+		springLayout.putConstraint(SpringLayout.WEST, txtTelefono, 94, SpringLayout.EAST, lblTelefono);
 		frmNuevoSocio.getContentPane().add(txtTelefono);
+		txtTelefono.setEditable(false);
 		txtTelefono.setColumns(10);
 		
 		JLabel lblEmail = new JLabel("Email");
-		springLayout.putConstraint(SpringLayout.NORTH, lblEmail, 24, SpringLayout.SOUTH, lblTelefono);
-		springLayout.putConstraint(SpringLayout.WEST, lblApellido, 0, SpringLayout.WEST, lblEmail);
-		springLayout.putConstraint(SpringLayout.WEST, lblDomicilio, 0, SpringLayout.WEST, lblEmail);
-		springLayout.putConstraint(SpringLayout.WEST, lblTelefono, 0, SpringLayout.WEST, lblEmail);
-		springLayout.putConstraint(SpringLayout.WEST, lblEmail, 0, SpringLayout.WEST, lblNombre);
+		springLayout.putConstraint(SpringLayout.WEST, lblEmail, 10, SpringLayout.WEST, frmNuevoSocio.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, lblTelefono, -20, SpringLayout.NORTH, lblEmail);
 		frmNuevoSocio.getContentPane().add(lblEmail);
 		
 		txtEmail = new JTextField();
-		springLayout.putConstraint(SpringLayout.WEST, txtApellido, 0, SpringLayout.WEST, txtEmail);
-		springLayout.putConstraint(SpringLayout.WEST, txtDomicio, 0, SpringLayout.WEST, txtEmail);
-		springLayout.putConstraint(SpringLayout.WEST, txtTelefono, 0, SpringLayout.WEST, txtEmail);
-		springLayout.putConstraint(SpringLayout.NORTH, txtEmail, 15, SpringLayout.SOUTH, txtTelefono);
-		springLayout.putConstraint(SpringLayout.WEST, txtEmail, 0, SpringLayout.WEST, txtNombre);
+		springLayout.putConstraint(SpringLayout.NORTH, txtEmail, -3, SpringLayout.NORTH, lblEmail);
+		springLayout.putConstraint(SpringLayout.WEST, txtEmail, 107, SpringLayout.EAST, lblEmail);
 		frmNuevoSocio.getContentPane().add(txtEmail);
 		txtEmail.setColumns(10);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		springLayout.putConstraint(SpringLayout.SOUTH, lblEmail, -50, SpringLayout.NORTH, btnAceptar);
 		springLayout.putConstraint(SpringLayout.WEST, btnAceptar, 10, SpringLayout.WEST, frmNuevoSocio.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, btnAceptar, -61, SpringLayout.SOUTH, frmNuevoSocio.getContentPane());
 		frmNuevoSocio.getContentPane().add(btnAceptar);
@@ -118,13 +120,24 @@ public class SocioView {
 		frmNuevoSocio.getContentPane().add(btnCancelar);
 		
 		JButton btnAgregaCert = new JButton("Agregar CM");
-		springLayout.putConstraint(SpringLayout.WEST, btnCancelar, 48, SpringLayout.EAST, btnAgregaCert);
-		springLayout.putConstraint(SpringLayout.SOUTH, btnAgregaCert, -61, SpringLayout.SOUTH, frmNuevoSocio.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, btnAgregaCert, 0, SpringLayout.WEST, txtNombre);
+		springLayout.putConstraint(SpringLayout.WEST, btnCancelar, 92, SpringLayout.EAST, btnAgregaCert);
+		springLayout.putConstraint(SpringLayout.NORTH, btnAgregaCert, 0, SpringLayout.NORTH, btnAceptar);
+		springLayout.putConstraint(SpringLayout.WEST, btnAgregaCert, 16, SpringLayout.EAST, btnAceptar);
 		btnAgregaCert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
 		frmNuevoSocio.getContentPane().add(btnAgregaCert);
+		
+		JLabel lblIdSocio = new JLabel("Id Socio");
+		springLayout.putConstraint(SpringLayout.SOUTH, lblIdSocio, -18, SpringLayout.NORTH, lblNombre);
+		springLayout.putConstraint(SpringLayout.EAST, lblIdSocio, 0, SpringLayout.EAST, lblNombre);
+		frmNuevoSocio.getContentPane().add(lblIdSocio);
+		
+		txtIdSocio = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, txtIdSocio, -3, SpringLayout.NORTH, lblIdSocio);
+		springLayout.putConstraint(SpringLayout.WEST, txtIdSocio, 0, SpringLayout.WEST, txtNombre);
+		frmNuevoSocio.getContentPane().add(txtIdSocio);
+		txtIdSocio.setColumns(10);
 	}
 }
