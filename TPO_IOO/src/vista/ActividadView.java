@@ -1,9 +1,14 @@
 package vista;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.SpringLayout;
+
+import modelo.Actividad;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -16,6 +21,7 @@ public class ActividadView {
 	private JTextField txtDesc;
 	private JTextField txtDia;
 	private JTextField txtHora;
+	private Actividad act;
 
 	/**
 	 * Launch the application.
@@ -115,5 +121,19 @@ public class ActividadView {
 		springLayout.putConstraint(SpringLayout.WEST, btnCancelar, 69, SpringLayout.EAST, btnAceptar);
 		springLayout.putConstraint(SpringLayout.SOUTH, btnCancelar, 0, SpringLayout.SOUTH, btnAceptar);
 		frmActividades.getContentPane().add(btnCancelar);
+		
+		JButton btnBuscar = new JButton("Buscar");
+		springLayout.putConstraint(SpringLayout.NORTH, btnBuscar, -4, SpringLayout.NORTH, lblCodigo);
+		springLayout.putConstraint(SpringLayout.WEST, btnBuscar, 18, SpringLayout.EAST, txtCodAct);
+		frmActividades.getContentPane().add(btnBuscar);
+		btnBuscar.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				act = act.buscarActividad(txtCodAct.getText()); 
+				
+			}
+			
+		});
 	}
 }

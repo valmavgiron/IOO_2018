@@ -15,10 +15,10 @@ public class Actividad {
 	}
 	
 	public void CrarActividad(int codigoActividad, String titulo, String descripcion, String horario) {
-		
+		Actividad acti = new Actividad(codigoActividad, titulo, descripcion, horario);
 	}
 	
-	public void modificarActividad(int codigoAct) {
+	public void modificarActividad(Actividad nuevaAct) {
 		
 	}
 	
@@ -26,7 +26,7 @@ public class Actividad {
 		
 	}
 	
-	public Actividad buscarActividad(int codigoAct) {
+	public Actividad buscarActividad(String codigoAct) {
 		return null;
 		
 	}
