@@ -6,13 +6,16 @@ import javax.swing.JFrame;
 import javax.swing.SpringLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JButton;
 
 public class ActividadView {
 
-	private JFrame frmActividades;
+	public JFrame frmActividades;
 	private JTextField txtCodAct;
 	private JTextField txtTitulo;
 	private JTextField txtDesc;
+	private JTextField txtDia;
+	private JTextField txtHora;
 
 	/**
 	 * Launch the application.
@@ -43,7 +46,7 @@ public class ActividadView {
 	private void initialize() {
 		frmActividades = new JFrame();
 		frmActividades.setTitle("Actividades");
-		frmActividades.setBounds(100, 100, 437, 355);
+		frmActividades.setBounds(100, 100, 310, 361);
 		frmActividades.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
 		frmActividades.getContentPane().setLayout(springLayout);
@@ -80,6 +83,37 @@ public class ActividadView {
 		springLayout.putConstraint(SpringLayout.EAST, txtDesc, 0, SpringLayout.EAST, txtCodAct);
 		frmActividades.getContentPane().add(txtDesc);
 		txtDesc.setColumns(10);
+		
+		JLabel lblDia = new JLabel("Dia");
+		springLayout.putConstraint(SpringLayout.NORTH, lblDia, 22, SpringLayout.SOUTH, lblDescripcin);
+		springLayout.putConstraint(SpringLayout.WEST, lblDia, 0, SpringLayout.WEST, lblCodigo);
+		frmActividades.getContentPane().add(lblDia);
+		
+		txtDia = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, txtDia, -3, SpringLayout.NORTH, lblDia);
+		springLayout.putConstraint(SpringLayout.WEST, txtDia, 0, SpringLayout.WEST, txtCodAct);
+		frmActividades.getContentPane().add(txtDia);
+		txtDia.setColumns(10);
+		
+		JLabel lblHora = new JLabel("Hora");
+		springLayout.putConstraint(SpringLayout.NORTH, lblHora, 204, SpringLayout.NORTH, frmActividades.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, lblHora, 0, SpringLayout.WEST, lblCodigo);
+		frmActividades.getContentPane().add(lblHora);
+		
+		txtHora = new JTextField();
+		springLayout.putConstraint(SpringLayout.WEST, txtHora, 0, SpringLayout.WEST, txtCodAct);
+		springLayout.putConstraint(SpringLayout.SOUTH, txtHora, 0, SpringLayout.SOUTH, lblHora);
+		frmActividades.getContentPane().add(txtHora);
+		txtHora.setColumns(10);
+		
+		JButton btnAceptar = new JButton("Aceptar");
+		springLayout.putConstraint(SpringLayout.NORTH, btnAceptar, 27, SpringLayout.SOUTH, lblHora);
+		springLayout.putConstraint(SpringLayout.WEST, btnAceptar, 10, SpringLayout.WEST, frmActividades.getContentPane());
+		frmActividades.getContentPane().add(btnAceptar);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		springLayout.putConstraint(SpringLayout.WEST, btnCancelar, 69, SpringLayout.EAST, btnAceptar);
+		springLayout.putConstraint(SpringLayout.SOUTH, btnCancelar, 0, SpringLayout.SOUTH, btnAceptar);
+		frmActividades.getContentPane().add(btnCancelar);
 	}
-
 }
