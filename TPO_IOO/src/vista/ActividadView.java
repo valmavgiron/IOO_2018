@@ -131,7 +131,14 @@ public class ActividadView {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				act = act.buscarActividad(txtCodAct.getText()); 
-				
+				if (act != null){
+					//txtCodAct.setText(act.getCodigoActividad());
+					txtTitulo.setText(act.getTitulo());
+					txtTitulo.setText(act.getTitulo());
+					txtTitulo.setText(act.getTitulo());
+					
+					
+				}
 			}
 			
 		});

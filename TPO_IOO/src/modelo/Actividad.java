@@ -30,5 +30,37 @@ public class Actividad {
 		return null;
 		
 	}
+
+	public int getCodigoActividad() {
+		return codigoActividad;
+	}
+
+	public void setCodigoActividad(int codigoActividad) {
+		this.codigoActividad = codigoActividad;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getHorario() {
+		return horario;
+	}
+
+	public void setHorario(String horario) {
+		this.horario = horario;
+	}
 	
 }

@@ -1,15 +1,18 @@
 package modelo;
 
+import java.util.Vector;
+
 public class Gimnasio {
 
-	Socio socios[];
-	Actividad actividades[];
-	Abono abonos[];
-			
+	private Vector<Socio> socios;
+	private Vector<Actividad> actividades;
+	private Vector<Abono> abonos;
+				
 	public void AltaSocio(Socio socio) {
 		
 	}
 	public void AociarAbono(Socio socio) {
+
 			
 	}
 	public void RegistrarActividad(Socio socio) {
