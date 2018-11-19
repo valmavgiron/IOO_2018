@@ -15,30 +15,31 @@ public class AbonoController
 		
 	}
 	
-	public ArrayList<AbonoVO> GetAbonos() {
-		abonos = new ArrayList<AbonoVO>();
-		Abono a = new Abono();
-		Vector<Abono> res = a.GetAbonos();
-		
-		for(Abono r : res) {
-			AbonoVO v = new AbonoVO();
-			v.setCodAbono(r.getCodAbono());
-			v.setNombre(r.getNombre());
-			v.setPrecio(r.getPrecio());
-			v.setVigencia(r.getVigencia());
-			v.setTipo(r.getTipo());
-			
-			abonos.add(v);
-		}
-		
-		return abonos;
-	}
-	
-	public void AgregarAbono(int codAbono, String nombre, Float precio, Date vigencia, Tipo tipo)
+	public void crearAbono(int codAbono, String nombre, Float precio, Date vigencia, Tipo tipo)
 	{
 		Abono a = new Abono(codAbono, nombre, precio, vigencia, tipo);
-		a.AgregarAbono();		
+		a.crearAbono();		
 	}
+	
+	public void modificarAbono(int codAbono)
+	{
+		abonos = new ArrayList<AbonoVO>();
+		Abono a = new Abono();
+			a.setNombre(r.getNombre());
+			a.setPrecio(r.getPrecio());
+			a.setVigencia(r.getVigencia());
+			a.setTipo(r.getTipo());
+			
+			a.modificarAbono();
+			
+	}
+
+	public void eliminarAbono(int codAbono)
+	{
+		Abono a = new Abono(codAbono);
+		a.eliminarAbono();
+		
+	}	
 
 }
 

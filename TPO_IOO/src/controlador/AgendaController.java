@@ -13,22 +13,6 @@ public class AgendaController
 		
 	}
 	
-	public ArrayList<AgendaVO> GetAgendas() {
-		agendas = new ArrayList<AgendaVO>();
-		Agenda a = new Agenda();
-		ArrayList<Agenda> res = a.GetAgendas();
-		
-		for(Agenda r : res) {
-			AgendaVO v = new AgendaVO();
-			v.setDia(r.getDia());
-			v.setHora(r.getHora());
-			
-			agendas.add(v);
-		}
-		
-		return agendas;
-	}
-	
 	public void AgregarAgenda(String dia, String hora)
 	{
 		Agenda a = new Agenda(dia, hora);
@@ -37,6 +21,18 @@ public class AgendaController
 	
 	public void ModificarAgenda(String dia, String hora)
 	{
-
+		agendas = new ArrayList<AgendaVO>();
+		Agenda a = new Agenda();
+			a.setDia(r.getDia());
+			a.setHora(r.getHora());
+			
+			a.ModificarAgenda();
 	}
+			
+	public void EliminarAgenda(String dia, String hora)
+	{
+		Agenda a = new Agenda(dia, hora);
+		a.EliminarAgenda();
+	}	
+	
 }

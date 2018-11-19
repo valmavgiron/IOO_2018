@@ -1,25 +1,27 @@
 package controlador;
+
+
 import java.util.*;
 import modelo.*;
 
 public class SocioController 
 {
-	private Vector<SocioVO> socios;
+	private ArrayList<SocioVO> socios;
 	
 	public SocioController()
 	{
 		
 	}
 	
-	public Vector<SocioVO> GetSocios() {
-		socios = new Vector<SocioVO>();
+	public ArrayList<SocioVO> GetSocios() {
+		socios = new ArrayList<SocioVO>();
 		Socio a = new Socio();
-		Vector<Socio> res = a.GetSocios();
+		ArrayList<Socio> res = a.GetSocios();
 		
 		for(Socio r : res) {
 			SocioVO v = new SocioVO();
 			v.setId(r.getId());
-			v.setNombre(r.getNonbre());
+			v.setNombre(r.getNombre());
 			v.setApellido(r.getApellido());
 			v.setDomicilio(r.getDomicilio());
 			v.setTelefono(r.getTelefono());
@@ -32,14 +34,31 @@ public class SocioController
 		return socios;
 	}
 	
-	public void AgregarSocio(int id, String nombre, String apellido, String domicilio, String telefono, String email, Date FechaCert,String medicoCert,String obsCert)
+	public void AgregarSocio(int id, String nombre, String apellido, String domicilio, double telefono, String email, CertificadoMedico certificado)
 	{
-		Socio a = new Socio(id, nombre, apellido, domicilio, telefono, email,FechaCert,medicoCert,obsCert);
+		Socio a = new Socio();
 		a.AgregarSocio();		
 	}
 	
-	public void ModificarSocio(int id, String nombre, String apellido, String domicilio, Double telefono, String email, CertificadoMedico certificado)
+	public void ModificarSocio(int id)
 	{
+		socios = new ArrayList<SocioVO>();
+		Socio a = new Socio();
 
+			a.setNombre(r.getApellido());
+			a.setDomicilio(r.getDomicio());
+			a.setTelefono(r.getHorario());
+			a.setEmail(r.getEmail());
+			
+			a.ModificarSocio();
+			
 	}
+		
+	public void EliminarSocio(int id)
+	{
+		Socio a = new Socio();
+		a.EliminarSocio();
+		
+	}	
+	
 }
