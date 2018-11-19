@@ -1,12 +1,17 @@
 package modelo;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
+
 public class Actividad {
 	
 	int codigoActividad;
 	String titulo;
 	String descripcion;
 	String horario;
-	
+	//Constructores
 	public Actividad(int codigoActividad, String titulo, String descripcion, String horario) {
 		this.codigoActividad = codigoActividad;
 		this.titulo = titulo;
@@ -14,8 +19,69 @@ public class Actividad {
 		this.horario = horario;
 	}
 	
-	public void CrarActividad(int codigoActividad, String titulo, String descripcion, String horario) {
-		Actividad acti = new Actividad(codigoActividad, titulo, descripcion, horario);
+	public Actividad() {
+	}
+	
+	//
+	public void CrearActividad()
+	{
+		Conexion conn = Conexion.getInstance();
+		
+		PreparedStatement stmt = null; 
+		try {			
+			//setamos el ID con el sequence	   		
+	   		stmt = conn.getConnection().prepareStatement("SELECT seq_actividad.nextval from DUAL");
+	   		stmt.execute();
+	   		//// Hacemos el inbsert
+	   		
+			stmt = conn.getConnection().prepareStatement("INSERT INTO ACTIVIDAD VALUES (seq_actividad.currval, '"
+															+ this.titulo +"', '"
+															+ this.descripcion +"', "
+															+ this.horario + ")");
+			stmt.execute();
+			
+		}
+		catch(SQLException se) {
+			System.out.println(se);
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+		}
+		finally {
+			conn.desconectar();
+		}
+	}
+	
+	public Vector<Actividad> GetActividades()
+	{
+		Vector<Actividad> actividades = new Vector<Actividad>();
+		
+		Conexion conn = Conexion.getInstance();
+		
+		PreparedStatement stmt = null; 
+		try {			
+			stmt = conn.getConnection().prepareStatement("SELECT * FROM ACTIVIDADES");
+			ResultSet rs = stmt.executeQuery();
+	   		while (rs.next()) {
+	   		    this.codigoActividad = Integer.parseInt(rs.getString("ID_ACTIVIDAD"));
+	   		    this.titulo = rs.getString("TITULO");
+	   		    this.descripcion = rs.getString("DESCRIPCION");
+	   		    this.horario = rs.getString("HORARIO");
+	   		    
+	   		    actividades.add(new Actividad(this.codigoActividad,this.titulo,this.descripcion,this.horario));
+	   		}	
+		}
+		catch(SQLException se) {
+			System.out.println(se);
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+		}
+		finally {
+			conn.desconectar();
+		}
+		
+		return actividades;
 	}
 	
 	public void modificarActividad(Actividad nuevaAct) {

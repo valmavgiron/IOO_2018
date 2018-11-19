@@ -1,4 +1,4 @@
-package controlador.controlador;
+package controlador;
 
 import modelo.Abono;
 import modelo.Actividad;

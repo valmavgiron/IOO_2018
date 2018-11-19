@@ -1,4 +1,4 @@
-package controlador.controlador;
+package controlador;
 
 import java.util.Date;
 

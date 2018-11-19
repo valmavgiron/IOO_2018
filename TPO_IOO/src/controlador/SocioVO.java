@@ -1,4 +1,4 @@
-package controlador.controlador;
+package controlador;
 
 import modelo.CertificadoMedico;
 
@@ -7,7 +7,7 @@ public class SocioVO {
 	private String nombre;
 	private String apellido;
 	private String domicilio;
-	private Double telefono;
+	private String telefono;
 	private String email;
 	private CertificadoMedico certificado;
 	
@@ -36,10 +36,10 @@ public class SocioVO {
 	public void setDomicilio(String domicilio) {
 		this.domicilio = domicilio;
 	}
-	public Double getTelefono() {
-		return telefono;
+	public String getTelefono() {
+		return this.telefono;
 	}
-	public void setTelefono(Double telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 	public String getEmail() {

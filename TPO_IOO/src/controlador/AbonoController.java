@@ -1,4 +1,4 @@
-package controlador.controlador;
+package controlador;
 
 
 import java.util.*;
@@ -18,7 +18,7 @@ public class AbonoController
 	public ArrayList<AbonoVO> GetAbonos() {
 		abonos = new ArrayList<AbonoVO>();
 		Abono a = new Abono();
-		ArrayList<Abono> res = a.GetAbonos();
+		Vector<Abono> res = a.GetAbonos();
 		
 		for(Abono r : res) {
 			AbonoVO v = new AbonoVO();
@@ -39,21 +39,6 @@ public class AbonoController
 		Abono a = new Abono(codAbono, nombre, precio, vigencia, tipo);
 		a.AgregarAbono();		
 	}
-	
-	public void ModificarAbono(int codAbono)
-	{
-		Abono a = new Abono();
-		abonos = new ArrayList<AbonoVO>();
-		
-		
 
-			a.setNombre(r.getNombre());
-			a.setPrecio(r.getPrecio());
-			a.setVigencia(r.getVigencia());
-			a.setTipo(r.getTipo());
-
-		}	
-				
-	}
 }
 

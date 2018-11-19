@@ -1,26 +1,25 @@
-package controlador.controlador;
-
+package controlador;
+import java.util.*;
 
 import java.util.*;
 import modelo.*;
 
 public class ActividadController 
 {
-	private ArrayList<ActividadVO> actividades;
+	private Vector<ActividadVO> actividades;
 	
 	public ActividadController()
 	{
 		
 	}
 	
-	public ArrayList<ActividadVO> GetActividades() {
-		actividades = new ArrayList<ActividadVO>();
+	public Vector<ActividadVO> GetActividades() {
+		actividades = new Vector<ActividadVO>();
 		Actividad a = new Actividad();
-		ArrayList<Actividad> res = a.GetActividades();
-		
+		Vector<Actividad> res = a.GetActividades();
 		for(Actividad r : res) {
 			ActividadVO v = new ActividadVO();
-			v.setCodigoAct(r.getCodigoAct());
+			v.setCodigoAct(r.getCodigoActividad());
 			v.setDescripcion(r.getDescripcion());
 			v.setHorario(r.getHorario());
 			
@@ -33,7 +32,7 @@ public class ActividadController
 	public void AgregarActividad(int codigoAct, String titulo, String descripcion, String horario)
 	{
 		Actividad a = new Actividad(codigoAct, titulo, descripcion, horario);
-		a.AgregarActividad();		
+		a.CrearActividad();		
 	}
 	
 	public void ModificarActividad(int codigoAct, String titulo, String descripcion, String horario)
