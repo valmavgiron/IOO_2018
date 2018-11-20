@@ -1,8 +1,9 @@
 package controlador;
 
 
-import java.util.*;
-import modelo.*;
+import java.util.ArrayList;
+
+import modelo.Actividad;
 
 public class ActividadController 
 {
@@ -13,44 +14,41 @@ public class ActividadController
 		
 	}
 	
-	public ArrayList<ActividadVO> GetActividades() {
+	public ArrayList<ActividadVO> getActividadesVO() {
 		actividades = new ArrayList<ActividadVO>();
-		Actividad a = new Actividad();
-		ArrayList<Actividad> res = a.GetActividades();
-		
+		Actividad actividad = new Actividad();
+		ArrayList<Actividad> res = actividad.getActividades();
+		for(Actividad act: res){
+			actividades.add(new ActividadVO(act));
+		}
 		return actividades;
 	}
 	
-	public void crearActividad(int codigoAct, String titulo, String descripcion, String horario)
+
+	
+	public void crearActividad(ActividadVO actividadVO)
 	{
-		Actividad a = new Actividad(codigoAct, titulo, descripcion, horario);
-		a.crearActividad();		
+		Actividad a = new Actividad();
+		a.crearActividad(actividadVO);		
 	}
 	
-	public void modificarActividad(int codigoAct)
+	public void modificarActividad(ActividadVO actividadVO)
 	{
-		actividades = new ArrayList<ActividadVO>();
 		Actividad a = new Actividad();
-
-			a.setTitulo(r.getTitulo());
-			a.setDescripcion(r.getDescripcion());
-			a.setHorario(r.getHorario());
-			
-			a.modificarActividad();
-			
+		a.modificarActividad(actividadVO);		
 	}
-		
+			
 	public void eliminarActividad(int codigoAct)
 	{
-		Actividad a = new Actividad(codigoAct);
-		a.eliminarActividad();
+		Actividad a = new Actividad();
+		a.eliminarActividad(codigoAct);
 		
 	}	
 	
-	public void listarActividad(int codigoAct)
+	public ArrayList<Actividad> listarActividad()
 	{
-		Actividad a = new Actividad(codigoAct);
-		a.listarActividad();
+		Actividad a = new Actividad();
+		return a.getActividades();
 		
 	}	
 			

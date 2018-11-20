@@ -15,4 +15,28 @@ public class CertificadoMedico {
 		this.observaciones = observaciones;
 		
 	}
+
+	public Date getFechaCertificado() {
+		return fechaCertificado;
+	}
+
+	public void setFechaCertificado(Date fechaCertificado) {
+		this.fechaCertificado = fechaCertificado;
+	}
+
+	public String getMedico() {
+		return medico;
+	}
+
+	public void setMedico(String medico) {
+		this.medico = medico;
+	}
+
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
 }

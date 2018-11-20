@@ -3,9 +3,11 @@ package modelo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.Vector;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import controlador.AbonoVO;
 
 public class Abono {
 
@@ -34,15 +36,15 @@ public class Abono {
 	}
 	
 	
-	public Vector<Abono> GetAbonos()
+	public ArrayList<Abono> getAbonos()
 	{
-		Vector<Abono> abonos = new Vector<Abono>();
+		ArrayList<Abono> abonos = new ArrayList<Abono>();
 		
 		Conexion conn = Conexion.getInstance();
 		
 		PreparedStatement stmt = null; 
 		try {			
-			stmt = conn.getConnection().prepareStatement("SELECT * FROM ALUMNO");
+			stmt = conn.getConnection().prepareStatement("SELECT * FROM ABONO");
 			ResultSet rs = stmt.executeQuery();
 	   		while (rs.next()) {
 	   		    this.codAbono = Integer.parseInt(rs.getString("ID_ABONO"));
@@ -68,7 +70,7 @@ public class Abono {
 		return abonos;
 	}
 	
-	public void AgregarAbono()
+	public void crearAbono(AbonoVO a)
 	{
 		Conexion conn = Conexion.getInstance();
 		
@@ -80,11 +82,63 @@ public class Abono {
 	   		
 	   		////
 	   		
-			stmt = conn.getConnection().prepareStatement("INSERT INTO ALUMNO VALUES (seq_abono.currval, '"
-															+ this.Nombre +"', '"
-															+ this.precio +"', "
-															+ this.precio +"', "
-															+ this.tipo + ")");
+	   		//VERIFICAR INSERT
+			stmt = conn.getConnection().prepareStatement("INSERT INTO ABONO VALUES (seq_abono.currval, '"
+															+ a.getNombre() +"', '"
+															+ a.getPrecio() +"', "
+															+ a.getVigencia() +"', "
+															+ a.getTipo() + ")");
+			stmt.execute();
+			
+		}
+		catch(SQLException se) {
+			System.out.println(se);
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+		}
+		finally {
+			conn.desconectar();
+		}
+	}
+	
+	public void modificarAbono(AbonoVO a){
+		Conexion conn = Conexion.getInstance();
+		
+		PreparedStatement stmt = null; 
+		try {		
+			
+	   		//VERIFICAR UPDATE
+	   		
+			stmt = conn.getConnection().prepareStatement("UPDATE ABONO SET "
+															
+															+"NOMBRE = '"+ a.getNombre() +"', "
+															+"PRECIO = '"+ a.getPrecio() +"', "
+															+"VIGENCIA = '"+ a.getVigencia() +"', "
+															+ "TIPO ='" +a.getTipo() + "' WHERE ID_ABONO = '"+ a.getCodAbono()+"'");
+			stmt.execute();
+			
+		}
+		catch(SQLException se) {
+			System.out.println(se);
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+		}
+		finally {
+			conn.desconectar();
+		}
+	}
+	
+	public void eliminarAbono(int codAbono){
+		Conexion conn = Conexion.getInstance();
+		
+		PreparedStatement stmt = null; 
+		try {		
+			
+	   		//VERIFICAR DELETE
+	   		
+			stmt = conn.getConnection().prepareStatement("DELETE FROM ABONO WHERE ID_ABONO = '"+ codAbono +"'");
 			stmt.execute();
 			
 		}

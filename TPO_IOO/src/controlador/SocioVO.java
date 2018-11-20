@@ -1,8 +1,19 @@
 package controlador;
 
 import modelo.CertificadoMedico;
+import modelo.Socio;
 
 public class SocioVO {
+	public SocioVO(Socio socio) {
+		super();
+		this.id = socio.getId();
+		this.nombre = socio.getNombre();
+		this.apellido = socio.getApellido();
+		this.domicilio = socio.getDomicilio();
+		this.telefono = socio.getDomicilio();
+		this.email = socio.getEmail();
+		this.certificado = socio.getCertificado();
+	}
 	private int id;
 	private String nombre;
 	private String apellido;

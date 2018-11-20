@@ -1,12 +1,25 @@
 package controlador;
 
+import modelo.Actividad;
 
 public class ActividadVO {
+	
 	private int codigoAct;
 	private String titulo;
 	private String descripcion;
 	private String horario;
+	private String dia;
 	
+	public ActividadVO() {
+		
+	}
+	public ActividadVO(Actividad act) {
+		this.codigoAct = act.getCodigoActividad();
+		this.titulo = act.getTitulo();
+		this.descripcion = act.getDescripcion();
+		this.horario = act.getHorario();
+		this.dia = act.getDia();
+	}
 	
 	public int getCodigoAct() {
 		return codigoAct;
@@ -31,6 +44,12 @@ public class ActividadVO {
 	}
 	public void setHorario(String horario) {
 		this.horario = horario;
+	}
+	public String getDia() {
+		return dia;
+	}
+	public void setDia(String dia) {
+		this.dia = dia;
 	}
 	
 }

@@ -3,7 +3,9 @@ package modelo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
+import java.util.ArrayList;
+
+import controlador.ActividadVO;
 
 public class Actividad {
 	
@@ -11,64 +13,38 @@ public class Actividad {
 	String titulo;
 	String descripcion;
 	String horario;
+	String dia;
 	//Constructores
-	public Actividad(int codigoActividad, String titulo, String descripcion, String horario) {
+	public Actividad(int codigoActividad, String titulo, String descripcion, String horario, String dia) {
 		this.codigoActividad = codigoActividad;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.horario = horario;
+		this.dia = dia;
 	}
 	
 	public Actividad() {
 	}
 	
 	//
-	public void CrearActividad()
-	{
-		Conexion conn = Conexion.getInstance();
-		
-		PreparedStatement stmt = null; 
-		try {			
-			//setamos el ID con el sequence	   		
-	   		stmt = conn.getConnection().prepareStatement("SELECT seq_actividad.nextval from DUAL");
-	   		stmt.execute();
-	   		//// Hacemos el inbsert
-	   		
-			stmt = conn.getConnection().prepareStatement("INSERT INTO ACTIVIDAD VALUES (seq_actividad.currval, '"
-															+ this.titulo +"', '"
-															+ this.descripcion +"', "
-															+ this.horario + ")");
-			stmt.execute();
-			
-		}
-		catch(SQLException se) {
-			System.out.println(se);
-		}
-		catch(Exception ex) {
-			System.out.println(ex);
-		}
-		finally {
-			conn.desconectar();
-		}
-	}
 	
-	public Vector<Actividad> GetActividades()
+	public ArrayList<Actividad> getActividades()
 	{
-		Vector<Actividad> actividades = new Vector<Actividad>();
+		ArrayList<Actividad> actividades = new ArrayList<Actividad>();
 		
 		Conexion conn = Conexion.getInstance();
 		
 		PreparedStatement stmt = null; 
 		try {			
-			stmt = conn.getConnection().prepareStatement("SELECT * FROM ACTIVIDADES");
+			stmt = conn.getConnection().prepareStatement("SELECT * FROM ACTIVIDAD");
 			ResultSet rs = stmt.executeQuery();
 	   		while (rs.next()) {
-	   		    this.codigoActividad = Integer.parseInt(rs.getString("ID_ACTIVIDAD"));
-	   		    this.titulo = rs.getString("TITULO");
-	   		    this.descripcion = rs.getString("DESCRIPCION");
-	   		    this.horario = rs.getString("HORARIO");
+	   		    Integer codigoActividad = Integer.parseInt(rs.getString("ID_ACTIVIDAD"));
+	   		    String titulo = rs.getString("TITULO");
+	   		    String descripcion = rs.getString("DESCRIPCION");
+	   		    String horario = rs.getString("HORARIO");
 	   		    
-	   		    actividades.add(new Actividad(this.codigoActividad,this.titulo,this.descripcion,this.horario));
+	   		    actividades.add(new Actividad(codigoActividad,titulo,descripcion,horario, dia));
 	   		}	
 		}
 		catch(SQLException se) {
@@ -84,14 +60,87 @@ public class Actividad {
 		return actividades;
 	}
 	
-	public void modificarActividad(Actividad nuevaAct) {
+	public void crearActividad(ActividadVO act)
+	{
+		Conexion conn = Conexion.getInstance();
 		
+		PreparedStatement stmt = null; 
+		try {			
+			//setamos el ID con el sequence	   		
+	   		stmt = conn.getConnection().prepareStatement("SELECT seq_actividad.nextval from DUAL");
+	   		stmt.execute();
+	   		//// Hacemos el inbsert
+	   		
+			stmt = conn.getConnection().prepareStatement("INSERT INTO ACTIVIDAD VALUES (seq_actividad.currval, '"
+															+ act.getTitulo() +"', '"
+															+ act.getDescripcion() +"', "
+															+ act.getDia() + "', "
+															+ act.getHorario() + ""
+																	+ ")");
+			stmt.execute();
+			
+		}
+		catch(SQLException se) {
+			System.out.println(se);
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+		}
+		finally {
+			conn.desconectar();
+		}
 	}
 	
-	public void eliminarActividad(int codigoAct) {
+	public void modificarActividad(ActividadVO act)
+	{
+		Conexion conn = Conexion.getInstance();
 		
+		PreparedStatement stmt = null; 
+		try {			
+	   		
+			stmt = conn.getConnection().prepareStatement("UPDATE ACTIVIDAD SET "
+															+"TITULO = '"+ act.getTitulo() +"', "
+															+"DESCRIPCION = '"+ act.getDescripcion() +"', "
+															+"DIA = '"+ act.getDia() +"', "
+															+"HORA = '"+ act.getHorario() +"' "
+															+"WHERE ID_ACTIVIDAD = '"+ act.getCodigoAct()+"'");
+			stmt.execute();
+			
+		}
+		catch(SQLException se) {
+			System.out.println(se);
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+		}
+		finally {
+			conn.desconectar();
+		}
 	}
 	
+	public void eliminarActividad(int codigoActividad){
+		Conexion conn = Conexion.getInstance();
+		
+		PreparedStatement stmt = null; 
+		try {		
+			
+	   		//VERIFICAR DELETE
+	   		
+			stmt = conn.getConnection().prepareStatement("DELETE FROM ACTIVIDAD WHERE ID_ACTIVIDAD = '"+ codigoActividad +"'");
+			stmt.execute();
+			
+		}
+		catch(SQLException se) {
+			System.out.println(se);
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+		}
+		finally {
+			conn.desconectar();
+		}
+	}
+
 	public Actividad buscarActividad(String codigoAct) {
 		return null;
 		
@@ -127,6 +176,14 @@ public class Actividad {
 
 	public void setHorario(String horario) {
 		this.horario = horario;
+	}
+
+	public String getDia() {
+		return dia;
+	}
+
+	public void setDia(String dia) {
+		this.dia = dia;
 	}
 	
 }

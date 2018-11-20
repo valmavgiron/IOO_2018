@@ -1,9 +1,6 @@
 package controlador;
 
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import modelo.*;
 
@@ -16,20 +13,20 @@ public class SocioController
 		
 	}
 	
-	public ArrayList<SocioVO> GetSocios() {
+	public ArrayList<SocioVO> getSocios() {
 		socios = new ArrayList<SocioVO>();
 		Socio a = new Socio();
-		Vector<Socio> res = a.GetSocios();
+		ArrayList<Socio> res = a.getSocios();
 		
 		for(Socio r : res) {
-			SocioVO v = new SocioVO();
-			v.setId(r.getId());
-			v.setNombre(r.getNonbre());
-			v.setApellido(r.getApellido());
-			v.setDomicilio(r.getDomicilio());
-			v.setTelefono(r.getTelefono());
-			v.setEmail(r.getEmail());
-			v.setCertificado(r.getCertificado());
+			SocioVO v = new SocioVO(r);
+//			v.setId(r.getId());
+//			v.setNombre(r.getNombre());
+//			v.setApellido(r.getApellido());
+//			v.setDomicilio(r.getDomicilio());
+//			v.setTelefono(r.getTelefono());
+//			v.setEmail(r.getEmail());
+//			v.setCertificado(r.getCertificado());
 			
 			socios.add(v);
 		}
@@ -37,39 +34,31 @@ public class SocioController
 		return socios;
 	}
 	
-	public void AgregarSocio(int id, String nombre, String apellido, String domicilio, String telefono, String email, Date fechaCertificado,String cert_medico,String cert_obs)
+	public void agregarSocio(SocioVO socio)
 	{
-		Socio a = new Socio(0,nombre,apellido,domicilio,telefono,email,fechaCertificado,cert_medico,cert_obs);
-		a.AgregarSocio();			
+		Socio a = new Socio();
+		a.agregarSocio(socio);		
 	}
 	
-	public void ModificarSocio(int id)
+	public void modificarSocio(SocioVO socio)
 	{
 		socios = new ArrayList<SocioVO>();
 		Socio a = new Socio();
 
-			//a.setNombre(r.getApellido());
-			//a.setDomicilio(r.getDomicio());
-			//a.setTelefono(r.getHorario());
-			//a.setEmail(r.getEmail());
-			
-			//a.ModificarSocio();
+//			a.setNombre(r.getApellido());
+//			a.setDomicilio(r.getDomicio());
+//			a.setTelefono(r.getHorario());
+//			a.setEmail(r.getEmail());
+//			
+			a.modificarSocio(socio);
 			
 	}
 		
-	public void EliminarSocio(int id)
+	public void eliminarSocio(int id)
 	{
 		Socio a = new Socio();
-		//a.EliminarSocio();
+		a.eliminarSocio(id);
 		
-	}
-
-	public Socio buscarSocio(String text) {
-		// TODO Auto-generated method stub
-		Socio a = new Socio();
-		a = a.BuscarSocio(text);
-	
-		return a;
 	}	
 	
 }

@@ -2,6 +2,7 @@ package controlador;
 
 import java.util.Date;
 
+import modelo.Abono;
 import modelo.Abono.Tipo;
 
 public class AbonoVO {
@@ -11,6 +12,25 @@ public class AbonoVO {
 	private Date vigencia;
 	private Tipo tipo;
 	
+	public AbonoVO()
+	{	
+	}
+	
+	public AbonoVO(int codAbono, String nombre, Float precio, Date vigencia, Tipo tipo) {
+		super();
+		this.codAbono = codAbono;
+		this.nombre = nombre;
+		this.precio = precio;
+		this.vigencia = vigencia;
+		this.tipo = tipo;
+	}
+	public AbonoVO(Abono abono) {
+		this.codAbono = abono.getCodAbono();
+		this.nombre = abono.getNombre();
+		this.precio = abono.getPrecio();
+		this.vigencia = abono.getVigencia();
+		this.tipo = abono.getTipo();
+	}
 	
 	public int getCodAbono() {
 		return codAbono;
