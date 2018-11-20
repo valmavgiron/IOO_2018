@@ -3,7 +3,10 @@ package modelo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 
 public class Socio {
@@ -16,6 +19,10 @@ public class Socio {
 	String email;
 	CertificadoMedico certificado;
 	
+	public Socio() {
+		
+	}
+	
 	public Socio(int id,String nonbre, String apellido, String domicilio, String telefono, String email,java.util.Date fechaCertificado,String cert_medico,String cert_obs) {
 		this.id=id;
 		this.nonbre = nonbre;
@@ -23,20 +30,29 @@ public class Socio {
 		this.domicilio = domicilio;
 		this.telefono = telefono;
 		this.email = email;
-		this.certificado.fechaCertificado=fechaCertificado;
-		this.certificado.medico=cert_medico;
-		this.certificado.observaciones=cert_obs;
-				
-	}
-	public Socio() {
+		this.certificado = new CertificadoMedico(fechaCertificado, cert_medico, cert_obs);
+		//this.certificado.fechaCertificado=null;
+		//this.certificado.medico=cert_medico;
+		//this.certificado.observaciones=cert_obs;
 				
 	}
 	
-	public void AgregarSocio()
+	public void AgregarSocio() 
 	{
 		Conexion conn = Conexion.getInstance();
-		
 		PreparedStatement stmt = null; 
+		
+		String pattern = "yyyy-MM-dd";
+        Date date = this.certificado.fechaCertificado;
+        Date fecha = null;
+        String fecha2 = null;
+        try {
+            DateFormat df = new SimpleDateFormat(pattern);
+            fecha2 = df.format(date);
+            fecha = df.parse(fecha2);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
 		try {			
 			//setamos el ID con el sequence	   		
 	   		stmt = conn.getConnection().prepareStatement("SELECT seq_socio.nextval from DUAL");
@@ -46,12 +62,12 @@ public class Socio {
 			stmt = conn.getConnection().prepareStatement("INSERT INTO SOCIO VALUES(seq_socio.currval, '"
 															+ this.nonbre +"', '"
 															+ this.apellido +"', '"
-															+ this.domicilio +"', "
-															+ this.telefono +"', "
-															+ this.email +"', "
-															+ this.certificado.fechaCertificado +"', "
-															+ this.certificado.medico +"', "
-															+ this.certificado.observaciones + ")");
+															+ this.domicilio +"', '"
+															+ this.telefono +"', '"
+															+ this.email +"', '"
+															+ fecha2 +"', '"
+															+ null +"', '"
+															+ null + "')");
 			stmt.execute();
 			
 		}
@@ -170,7 +186,43 @@ public class Socio {
 	public void setCertificado(CertificadoMedico certificado) {
 		this.certificado = certificado;
 	}
-	
-	//
-	
+
+	public Socio BuscarSocio(String text) {
+		// TODO Auto-generated method stub
+		Socio socios = new Socio();
+		
+		Conexion conn = Conexion.getInstance();
+		
+		PreparedStatement stmt = null; 
+		try {			
+			stmt = conn.getConnection().prepareStatement("SELECT * FROM SOCIO WHERE ID_SOCIO = '"+text+"'" );
+			ResultSet rs = stmt.executeQuery();
+	   		while (rs.next()) {	   			
+	   		    socios.id = Integer.parseInt(rs.getString("ID_SOCIO"));
+	   		    socios.nonbre = rs.getString("NOMBRE");
+	   		    socios.apellido = rs.getString("APELLIDO");
+	   		    socios.domicilio = rs.getString("DOMICILIO");
+	   		    socios.telefono = rs.getString("TELEFONO");
+	   		    socios.email = rs.getString("EMAIL");
+	   		    //this.certificado.fechaCertificado = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("CERT_FECHA"));
+	   		    socios.certificado.medico = rs.getString("CERT_MEDICO");
+	   		    socios.certificado.observaciones = rs.getString("CERT_OBS");
+	   		    
+	   		    //socios = new Socio(this.id, this.nonbre,this.apellido,this.domicilio, this.telefono, this.email, this.certificado.fechaCertificado,this.certificado.medico,this.certificado.observaciones);
+	   		}	
+		}
+		catch(SQLException se) {
+			System.out.println(se);
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+		}
+		finally {
+			conn.desconectar();
+		}
+		
+		return socios;
+		
+		
+	}
 }

@@ -55,17 +55,48 @@ public class GimnasioMenu {
 		
 		JMenuItem mntmAltaSocio = new JMenuItem("Alta Socio");
 		mnSocio.add(mntmAltaSocio);
+		mntmAltaSocio.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				SocioView altaS = new SocioView();
+				altaS.frmNuevoSocio.setVisible(true);
+			}
+		});
 		
-		JMenuItem mntmModificacion = new JMenuItem("Modificacion");
+		JMenuItem mntmModificacion = new JMenuItem("Modificar Socio");
 		mnSocio.add(mntmModificacion);
+		mntmModificacion.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				ModifSocioView modifS = new ModifSocioView();
+				modifS.frmNuevoSocio.setVisible(true);
+			}
+			
+		});
 		
 		JMenuItem mntmBajaSocio = new JMenuItem("Baja Socio");
 		mnSocio.add(mntmBajaSocio);
+		mntmBajaSocio.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				BajaSocioView bajaS = new BajaSocioView();
+				bajaS.frmNuevoSocio.setVisible(true);
+			}
+			
+		});
+		
+		JMenuItem mntmAltaCertMedico = new JMenuItem("Alta Cert Medico");
+		mnSocio.add(mntmAltaCertMedico);
 		
 		JMenu mnActividad = new JMenu("Actividades");
 		menuBar.add(mnActividad);
 		
-		JMenuItem mntmAltaAct = new JMenuItem("Alta Actividades");
+		JMenuItem mntmAltaAct = new JMenuItem("Alta Actividad");
 		mnActividad.add(mntmAltaAct);
 		mntmAltaAct.addActionListener(new ActionListener() {
 			
@@ -78,18 +109,37 @@ public class GimnasioMenu {
 		});
 		
 		
-		JMenuItem mntmModAct = new JMenuItem("Modificacion Actividades");
-		mnActividad.add(mntmModAct);
+		JMenuItem mntmModAct = new JMenuItem("Modificar Actividad");
+		mnActividad.add(mntmModAct);		
+		mntmModAct.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				ActModifView actm = new ActModifView();
+				actm.frmActividades.setVisible(true);
+				
+			}
+		});
 		
-		JMenuItem mntmBajaAct = new JMenuItem("Baja Actividades");
+		
+		
+		JMenuItem mntmBajaAct = new JMenuItem("Baja Actividad");
 		mnActividad.add(mntmBajaAct);
+		mntmBajaAct.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				ActBajaView actB = new ActBajaView();
+				actB.frmActividades.setVisible(true);
+			}
+			
+		});
+		
 		
 		JMenu mnCronograma = new JMenu("Cronograma");
 		menuBar.add(mnCronograma);
 		
-		JMenu mnSalir = new JMenu("Salir");
-		menuBar.add(mnSalir);
-				
 		mnCronograma.addMenuListener(new MenuListener() {
 			public void menuSelected(MenuEvent evt)
 			{
@@ -108,9 +158,29 @@ public class GimnasioMenu {
 				// TODO Auto-generated method stub
 				
 			}
-		}
+		});
+		
+		JMenu mnSalir = new JMenu("Salir");
+		menuBar.add(mnSalir);
 				
-		);
+		mnSalir.addMenuListener(new MenuListener() {
+			public void menuSelected(MenuEvent evt)
+			{
+				frmGimnasio.dispose();
+			}
+
+			@Override
+			public void menuCanceled(MenuEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void menuDeselected(MenuEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 	}
 

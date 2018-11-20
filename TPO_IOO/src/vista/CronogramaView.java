@@ -3,14 +3,12 @@ package vista;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.SpringLayout;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
-import java.awt.GridLayout;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-import java.awt.Component;
+import javax.swing.JButton;
+import javax.swing.JScrollBar;
 
 public class CronogramaView {
 
@@ -46,34 +44,36 @@ public class CronogramaView {
 	private void initialize() {
 		frmCronograma = new JFrame();
 		frmCronograma.setTitle("Cronograma");
-		frmCronograma.setBounds(100, 100, 450, 300);
+		frmCronograma.setBounds(100, 100, 466, 398);
 		frmCronograma.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmCronograma.getContentPane().setLayout(new GridLayout(1, 0, 0, 0));
+		frmCronograma.getContentPane().setLayout(null);
 		
-		table = new JTable();
-		table.setBackground(new Color(255, 255, 255));
-		table.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		table.setToolTipText("");
-		table.setFillsViewportHeight(true);
+		String[] columnNames = {"Actividad", "Dia", "Hora"};
+	    String data[][]={{"","",""},{"","",""}};
+		table = new JTable(data,columnNames);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
+				{"", "", ""},
+				{"", "", ""},
 			},
 			new String[] {
 				"Actividad", "Dia", "Hora"
 			}
-		) {
-			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
+		));
+		//table.setBackground(new Color(255, 255, 255));
+		table.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		table.setLocation(20,10);
+		table.setSize(400, 200);
+		table.setToolTipText("Cronograma");
+		//table.setFillsViewportHeight(true);
 		frmCronograma.getContentPane().add(table);
-		frmCronograma.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{table}));
-		frmCronograma.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{frmCronograma.getContentPane(), table}));
+		
+		JButton btnNewButton = new JButton("Aceptar");
+		btnNewButton.setBounds(30, 223, 97, 25);
+		frmCronograma.getContentPane().add(btnNewButton);
+		
+		JScrollBar scrollBar = new JScrollBar();
+		scrollBar.setBounds(299, 10, 21, 200);
+		frmCronograma.getContentPane().add(scrollBar);
 	}
 }

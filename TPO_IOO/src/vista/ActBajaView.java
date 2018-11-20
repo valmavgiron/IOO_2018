@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class ActividadView {
+public class ActBajaView {
 
 	public JFrame frmActividades;
 	private JTextField txtTitulo;
@@ -28,7 +28,7 @@ public class ActividadView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ActividadView window = new ActividadView();
+					ActBajaView window = new ActBajaView();
 					window.frmActividades.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +40,7 @@ public class ActividadView {
 	/**
 	 * Create the application.
 	 */
-	public ActividadView() {
+	public ActBajaView() {
 		initialize();
 	}
 
@@ -57,43 +57,52 @@ public class ActividadView {
 		JLabel lblTtulo = new JLabel("T\u00EDtulo");
 		frmActividades.getContentPane().add(lblTtulo);
 		lblTtulo.setBounds(21,72,63,28);
+		lblTtulo.setEnabled(false);
 	
 		JLabel lblDescripcin = new JLabel("Descripci\u00F3n");
 		frmActividades.getContentPane().add(lblDescripcin);
 		lblDescripcin.setBounds(21,126,63,28);
-		
+		lblDescripcin.setEnabled(false);
+				
 		JLabel lblDia = new JLabel("Dia");
 		frmActividades.getContentPane().add(lblDia);
 		lblDia.setBounds(21,185,63,28);
+		lblDia.setEnabled(false);
 		
 		JLabel lblHora = new JLabel("Hora");
 		frmActividades.getContentPane().add(lblHora);
 		lblHora.setBounds(21,242,63,28);
+		lblHora.setEnabled(false);
 		
 		txtTitulo = new JTextField();
 		frmActividades.getContentPane().add(txtTitulo);
 		txtTitulo.setBounds(119,72,210,28);
+		txtTitulo.setEnabled(false);
 		
 		txtDesc = new JTextField();
 		frmActividades.getContentPane().add(txtDesc);
 		txtDesc.setBounds(119,126,210,28);
-				
+		txtDesc.setEnabled(false);
+		
 		txtDia = new JTextField();
 		frmActividades.getContentPane().add(txtDia);
 		txtDia.setBounds(119,185,210,28);
+		txtDia.setEnabled(false);
 		
 		txtHora = new JTextField();
 		frmActividades.getContentPane().add(txtHora);
 		txtHora.setBounds(119,242,210,28);
+		txtHora.setEnabled(false);
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		frmActividades.getContentPane().add(btnAceptar);
 		btnAceptar.setBounds(21, 295, 90, 28);
+		btnAceptar.setVisible(true);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		frmActividades.getContentPane().add(btnCancelar);
 		btnCancelar.setBounds(239, 295, 90, 28);
-		btnCancelar.addActionListener(new ActionListener(){
+		btnCancelar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -103,14 +112,27 @@ public class ActividadView {
 			
 		});
 		
-		
 		JLabel lblCodigo = new JLabel("Codigo");
 		lblCodigo.setBounds(21, 23, 63, 28);
 		frmActividades.getContentPane().add(lblCodigo);
 		
 		textField = new JTextField();
-		textField.setBounds(119, 20, 210, 28);
+		textField.setBounds(119, 20, 140, 28);
 		frmActividades.getContentPane().add(textField);
 		textField.setColumns(10);
+		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(271, 20, 90, 28);
+		frmActividades.getContentPane().add(btnBuscar);
+		btnBuscar.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				btnAceptar.setVisible(true);
+			}
+			
+		});
+		
 	}
 }

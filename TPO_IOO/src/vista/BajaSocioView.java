@@ -4,19 +4,12 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-
-import controlador.SocioController;
-
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.awt.event.ActionEvent;
 
-public class SocioView {
+public class BajaSocioView {
 
 	public JFrame frmNuevoSocio;
 	private JTextField txtNombre;
@@ -25,10 +18,6 @@ public class SocioView {
 	private JTextField txtTelefono;
 	private JTextField txtEmail;
 	private JTextField txtCodigo;
-	private JTextField txtCertificado;
-	private JTextField txtMedico;
-	private JTextField txtObs;
-	
 
 	/**
 	 * Launch the application.
@@ -37,7 +26,7 @@ public class SocioView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SocioView window = new SocioView();
+					BajaSocioView window = new BajaSocioView();
 					window.frmNuevoSocio.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +38,7 @@ public class SocioView {
 	/**
 	 * Create the application.
 	 */
-	public SocioView() {
+	public BajaSocioView() {
 		initialize();
 	}
 
@@ -59,7 +48,7 @@ public class SocioView {
 	private void initialize() {
 		frmNuevoSocio = new JFrame();
 		frmNuevoSocio.setTitle("Nuevo Socio");
-		frmNuevoSocio.setBounds(100, 100, 435, 497);
+		frmNuevoSocio.setBounds(100, 100, 435, 444);
 		frmNuevoSocio.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmNuevoSocio.getContentPane().setLayout(null);
 		
@@ -67,79 +56,54 @@ public class SocioView {
 		frmNuevoSocio.getContentPane().add(txtNombre);
 		txtNombre.setColumns(10);
 		txtNombre.setBounds(119,54,180,28);
+		txtNombre.setEnabled(false);
 		
 		JLabel lblNombre = new JLabel("Nombre");
 		frmNuevoSocio.getContentPane().add(lblNombre);
 		lblNombre.setBounds(19,54,120,28);
-		
+				
 		JLabel lblApellido = new JLabel("Apellido");
 		frmNuevoSocio.getContentPane().add(lblApellido);
 		lblApellido.setBounds(19,95,120,28);
-		
+				
 		JLabel lblTelefono = new JLabel("Telefono");
 		frmNuevoSocio.getContentPane().add(lblTelefono);
 		lblTelefono.setBounds(19,177,120,28);
-		
+				
 		JLabel lblDomicilio = new JLabel("Domicilio");
 		frmNuevoSocio.getContentPane().add(lblDomicilio);
 		lblDomicilio.setBounds(19,136,120,28);
-		
+				
 		txtApellido = new JTextField();
 		frmNuevoSocio.getContentPane().add(txtApellido);
 		txtApellido.setBounds(119,95,180,28);
+		txtApellido.setEnabled(false);
 		
 		txtDomicio = new JTextField();
 		frmNuevoSocio.getContentPane().add(txtDomicio);
 		txtDomicio.setBounds(119,136,180,28);
+		txtDomicio.setEnabled(false);
 		
 		txtTelefono = new JTextField();
 		frmNuevoSocio.getContentPane().add(txtTelefono);
 		txtTelefono.setBounds(119,177,180,28);
+		txtTelefono.setEnabled(false);
 		
 		JLabel lblEmail = new JLabel("Email");
 		frmNuevoSocio.getContentPane().add(lblEmail);
 		lblEmail.setBounds(19,218,120,28);
-		
+				
 		txtEmail = new JTextField();
 		frmNuevoSocio.getContentPane().add(txtEmail);
 		txtEmail.setBounds(119,218,180,28);
+		txtEmail.setEnabled(false);
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		frmNuevoSocio.getContentPane().add(btnAceptar);
-		btnAceptar.setBounds(19,395,100,28);
-		btnAceptar.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				String n = txtNombre.getText();
-				String a = txtApellido.getText();
-				String d = txtDomicio.getText();
-				String t = txtTelefono.getText();
-				String em = txtEmail.getText();
-
-				String pattern = "dd/MM/yyyy";
-		        String date = txtCertificado.getText();
-		        Date fecha = null;
-		        try {
-		            DateFormat df = new SimpleDateFormat(pattern);
-		            fecha = df.parse(date);
-		            System.out.println("Today = " + df.format(fecha));
-		        } catch (ParseException ie) {
-		            ie.printStackTrace();
-		        }
-
-				String m = txtMedico.getText();
-				String o = txtObs.getText();
-
-				SocioController socioN = new SocioController();
-				socioN.AgregarSocio(0, n, a, d, t, em,fecha,m,o);
-			}
-			
-		});
+		btnAceptar.setBounds(19,310,100,28);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(253,395,100,28);
+		btnCancelar.setBounds(259,324,100,28);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmNuevoSocio.dispose();
@@ -152,36 +116,12 @@ public class SocioView {
 		frmNuevoSocio.getContentPane().add(lblNewLabel);
 				
 		txtCodigo = new JTextField();
-		txtCodigo.setBounds(119, 13, 180, 28);
+		txtCodigo.setBounds(119, 13, 150, 28);
 		frmNuevoSocio.getContentPane().add(txtCodigo);
-		txtCodigo.setEnabled(false);
 		txtCodigo.setColumns(10);
 		
-		JLabel lblCert = new JLabel("Fecha Certificado");
-		lblCert.setBounds(19, 265, 100, 16);
-		frmNuevoSocio.getContentPane().add(lblCert);
-		
-		txtCertificado = new JTextField();
-		txtCertificado.setBounds(119, 259, 180, 28);
-		frmNuevoSocio.getContentPane().add(txtCertificado);
-		txtCertificado.setColumns(10);
-		
-		JLabel lblMedico = new JLabel("Medico");
-		lblMedico.setBounds(19, 308, 56, 16);
-		frmNuevoSocio.getContentPane().add(lblMedico);
-		
-		txtMedico = new JTextField();
-		txtMedico.setBounds(119, 302, 180, 28);
-		frmNuevoSocio.getContentPane().add(txtMedico);
-		txtMedico.setColumns(10);
-		
-		JLabel lblObservaciones = new JLabel("Observaciones");
-		lblObservaciones.setBounds(19, 353, 89, 16);
-		frmNuevoSocio.getContentPane().add(lblObservaciones);
-		
-		txtObs = new JTextField();
-		txtObs.setBounds(119, 347, 180, 28);
-		frmNuevoSocio.getContentPane().add(txtObs);
-		txtObs.setColumns(10);
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(281, 15, 97, 25);
+		frmNuevoSocio.getContentPane().add(btnBuscar);
 	}
 }
