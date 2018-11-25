@@ -60,5 +60,13 @@ public class SocioController
 		a.eliminarSocio(id);
 		
 	}	
+	public Socio buscarSocio(String text) {
+		// TODO Auto-generated method stub
+		Socio a = new Socio();
+		a = a.BuscarSocio(text);
+	
+		return a;
+	}
 	
 }
+

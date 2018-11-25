@@ -4,6 +4,7 @@ package controlador;
 import java.util.ArrayList;
 
 import modelo.Actividad;
+import modelo.Socio;
 
 public class ActividadController 
 {
@@ -51,6 +52,14 @@ public class ActividadController
 		return a.getActividades();
 		
 	}	
+	
+	public Actividad buscarActividad(int text) {
+		// TODO Auto-generated method stub
+		Actividad a = new Actividad();
+		a = a.buscarActividad(text);
+	
+		return a;
+	}
 			
 }
 

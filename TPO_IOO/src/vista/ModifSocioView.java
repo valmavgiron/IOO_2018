@@ -12,6 +12,10 @@ import modelo.Socio;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class ModifSocioView {
@@ -112,6 +116,39 @@ public class ModifSocioView {
 		txtEmail.setVisible(false);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					String id = txtCodigo.getText();
+					String n = txtNombre.getText();
+					String a = txtApellido.getText();
+					String d = txtDomicio.getText();
+					String t = txtTelefono.getText();
+					String em = txtEmail.getText();
+
+					String pattern = "dd/MM/yyyy";
+			        String date = txtCert.getText();
+			        Date fecha = null;
+			        try {
+			            DateFormat df = new SimpleDateFormat(pattern);
+			            fecha = df.parse(date);
+			            System.out.println("Today = " + df.format(fecha));
+			        } catch (ParseException ie) {
+			            ie.printStackTrace();
+			        }
+
+					String m = txtMedico.getText();
+					String o = txtObs.getText();
+
+					//SocioController socioN = new SocioController();
+					Socio socios = new Socio(Integer.parseInt(id), n, a, d, t, em,fecha,m,o);
+					SocioVO socio = new SocioVO(socios);
+					socios.modificarSocio(socio);
+					
+				}
+			
+		});
 		frmNuevoSocio.getContentPane().add(btnAceptar);
 		btnAceptar.setBounds(19,398,100,28);
 		
@@ -188,9 +225,26 @@ public class ModifSocioView {
 					lblMedico.setVisible(true);
 					txtObs.setVisible(true);
 					lblObservaciones.setVisible(true);
-					txtNombre.setText(socios.getNonbre());
+					txtNombre.setText(socios.getNombre());
 					txtApellido.setText(socios.getApellido());
 					txtDomicio.setText(socios.getDomicilio());
+					txtEmail.setText(socios.getEmail());
+					txtTelefono.setText(socios.getTelefono());
+					Date fecha = null;
+					fecha = socios.getCertificado().getFechaCertificado();
+					String pattern = "dd/MM/yyy";
+			        //Date date = this.certificado.fechaCertificado;
+			        String fecha2 = null;
+			        try {
+			            DateFormat df = new SimpleDateFormat(pattern);
+			            fecha2 = df.format(fecha);
+			            fecha = df.parse(fecha2);
+			        } catch (ParseException ex) {
+			            ex.printStackTrace();
+			        }
+					txtCert.setText(fecha2);
+					txtMedico.setText(socios.getCertificado().getMedico());
+					txtObs.setText(socios.getCertificado().getObservaciones());
 				}
 				
 			}

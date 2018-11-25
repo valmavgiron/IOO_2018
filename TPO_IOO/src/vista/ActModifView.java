@@ -6,9 +6,16 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import modelo.Actividad;
+import modelo.Socio;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import controlador.ActividadController;
+import controlador.ActividadVO;
+import controlador.SocioController;
+import controlador.SocioVO;
+
 import javax.swing.JButton;
 
 public class ActModifView {
@@ -95,6 +102,19 @@ public class ActModifView {
 		txtHora.setVisible(false);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String t = txtTitulo.getText();
+				String des = txtDesc.getText();
+				String dia = txtDia.getText();
+				String hora = txtHora.getText();
+				
+				Actividad acts = new Actividad(Integer.parseInt(textField.getText()), t, des, dia, hora);
+				ActividadVO actividad = new ActividadVO(acts);
+				acts.modificarActividad(actividad);
+			}
+		});
 		frmActividades.getContentPane().add(btnAceptar);
 		btnAceptar.setBounds(21, 295, 90, 28);
 		btnAceptar.setVisible(false);
@@ -125,10 +145,15 @@ public class ActModifView {
 		btnBuscar.setBounds(271, 20, 90, 28);
 		frmActividades.getContentPane().add(btnBuscar);
 		btnBuscar.addActionListener(new ActionListener(){
+			
 
 			@Override
+			
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				ActividadController actividad = new ActividadController();
+				Actividad activ = actividad.buscarActividad(Integer.parseInt(textField.getText()));
+				if (activ!= null){
 				lblTtulo.setVisible(true);
 				lblDescripcin.setVisible(true);
 				lblDia.setVisible(true);
@@ -138,6 +163,11 @@ public class ActModifView {
 				txtDia.setVisible(true);
 				txtHora.setVisible(true);
 				btnAceptar.setVisible(true);
+				txtTitulo.setText(activ.getTitulo());
+				txtDesc.setText(activ.getDescripcion());
+				txtDia.setText(activ.getDia());
+				txtHora.setText(activ.getHorario());
+				}
 			}
 			
 		});

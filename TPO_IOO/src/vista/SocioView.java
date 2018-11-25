@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import controlador.SocioController;
+import controlador.SocioVO;
+import modelo.Socio;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -132,8 +134,11 @@ public class SocioView {
 				String m = txtMedico.getText();
 				String o = txtObs.getText();
 
-				SocioController socioN = new SocioController();
-				socioN.AgregarSocio(0, n, a, d, t, em,fecha,m,o);
+				//SocioController socioN = new SocioController();
+				Socio socios = new Socio(0, n, a, d, t, em,fecha,m,o);
+				SocioVO socio = new SocioVO(socios);
+				socios.agregarSocio(socio);
+				
 			}
 			
 		});

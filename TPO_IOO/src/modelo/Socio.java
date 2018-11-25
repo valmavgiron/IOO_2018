@@ -3,6 +3,8 @@ package modelo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -80,6 +82,20 @@ public class Socio {
 	{
 		Conexion conn = Conexion.getInstance();
 		
+		//Fecha
+		String pattern = "yyyy-MM-dd";
+        Date date = this.certificado.fechaCertificado;
+        Date fecha = null;
+        String fecha2 = null;
+        try {
+            DateFormat df = new SimpleDateFormat(pattern);
+            fecha2 = df.format(date);
+            fecha = df.parse(fecha2);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+		
+		
 		PreparedStatement stmt = null; 
 		try {			
 			//setamos el ID con el sequence	   		
@@ -90,12 +106,12 @@ public class Socio {
 			stmt = conn.getConnection().prepareStatement("INSERT INTO SOCIO VALUES(seq_socio.currval, '"
 															+ socio.getNombre() +"', '"
 															+ socio.getApellido() +"', '"
-															+ socio.getDomicilio() +"', "
-															+ socio.getTelefono() +"', "
-															+ socio.getEmail() +"', "
-															+ socio.getCertificado().getFechaCertificado() +"', "
-															+ socio.getCertificado().getMedico() +"', "
-															+ socio.getCertificado().getObservaciones() + ")");
+															+ socio.getDomicilio() +"', '"
+															+ socio.getTelefono() +"', '"
+															+ socio.getEmail() +"', '"
+															+ fecha2  +"', '"
+															+ socio.getCertificado().getMedico() +"', '"
+															+ socio.getCertificado().getObservaciones() + "')");
 			stmt.execute();
 			
 		}
@@ -114,6 +130,20 @@ public class Socio {
 	{
 		Conexion conn = Conexion.getInstance();
 		
+		//Fecha
+		String pattern = "yyyy-MM-dd";
+        Date date = this.certificado.fechaCertificado;
+        Date fecha = null;
+        String fecha2 = null;
+        try {
+            DateFormat df = new SimpleDateFormat(pattern);
+            fecha2 = df.format(date);
+            fecha = df.parse(fecha2);
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+		
+		
 		PreparedStatement stmt = null; 
 		try {			
 	   		
@@ -123,7 +153,7 @@ public class Socio {
 															+"DOMICILIO = '"+ socio.getDomicilio() +"', "
 															+"TELEFONO = '"+ socio.getTelefono() +"', "
 															+"EMAIL = '"+ socio.getEmail() +"', "
-															+"CERT_FECHA = '"+ socio.getCertificado().getFechaCertificado() +"', "
+															+"CERT_FECHA = '"+ fecha2 +"', "
 															+"CERT_MEDICO = '"+ socio.getCertificado().getMedico() +"', "
 															+"CERT_OBS = '"+ socio.getCertificado().getObservaciones() +"' "
 															+"WHERE ID_SOCIO = '"+ socio.getId() +"'");
@@ -220,5 +250,45 @@ public class Socio {
 	}
 	
 	//
+	
+	public Socio BuscarSocio(String text) {
+		// TODO Auto-generated method stub
+		Socio socios = new Socio();
+		
+		Conexion conn = Conexion.getInstance();
+		
+		PreparedStatement stmt = null; 
+		try {			
+			stmt = conn.getConnection().prepareStatement("SELECT * FROM SOCIO WHERE ID_SOCIO = '"+text+"'" );
+			ResultSet rs = stmt.executeQuery();
+	   		while (rs.next()) {	   			
+	   		    socios.id = Integer.parseInt(rs.getString("ID_SOCIO"));
+	   		    socios.nombre = rs.getString("NOMBRE");
+	   		    socios.apellido = rs.getString("APELLIDO");
+	   		    socios.domicilio = rs.getString("DOMICILIO");
+	   		    socios.telefono = rs.getString("TELEFONO");
+	   		    socios.email = rs.getString("EMAIL");
+	   		    socios.certificado = new CertificadoMedico(rs.getDate("CERT_FECHA"), rs.getString("CERT_MEDICO"), rs.getString("CERT_OBS"));
+	   		    //socios.certificado.fechaCertificado = rs.getDate("CERT_FECHA");
+	   		    //socios.certificado.medico = rs.getString("CERT_MEDICO");
+	   		    //socios.certificado.observaciones = rs.getString("CERT_OBS");
+
+	   		    //socios = new Socio(this.id, this.nonbre,this.apellido,this.domicilio, this.telefono, this.email, this.certificado.fechaCertificado,this.certificado.medico,this.certificado.observaciones);
+	   		}	
+		}
+		catch(SQLException se) {
+			System.out.println(se);
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+		}
+		finally {
+			conn.desconectar();
+		}
+		
+		return socios;
+		
+		
+	}
 	
 }

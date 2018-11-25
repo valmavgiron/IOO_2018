@@ -4,9 +4,17 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+
+import controlador.SocioController;
+import modelo.Socio;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class BajaSocioView {
@@ -99,11 +107,17 @@ public class BajaSocioView {
 		txtEmail.setEnabled(false);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Socio socios = new Socio();
+				socios.eliminarSocio(Integer.parseInt(txtCodigo.getText()));
+			}
+		});
 		frmNuevoSocio.getContentPane().add(btnAceptar);
 		btnAceptar.setBounds(19,310,100,28);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(259,324,100,28);
+		btnCancelar.setBounds(259,310,100,28);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmNuevoSocio.dispose();
@@ -121,6 +135,31 @@ public class BajaSocioView {
 		txtCodigo.setColumns(10);
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+public void actionPerformed(ActionEvent arg0) {
+				
+				SocioController socio = new SocioController();
+				Socio socios = socio.buscarSocio(txtCodigo.getText());
+				if (socio != null){
+					txtNombre.setVisible(true);
+					lblNombre.setVisible(true);
+					txtApellido.setVisible(true);
+					lblApellido.setVisible(true);
+					txtTelefono.setVisible(true);
+					lblTelefono.setVisible(true);
+					txtDomicio.setVisible(true);
+					lblDomicilio.setVisible(true);
+					txtEmail.setVisible(true);
+					lblEmail.setVisible(true);
+					txtNombre.setText(socios.getNombre());
+					txtApellido.setText(socios.getApellido());
+					txtDomicio.setText(socios.getDomicilio());
+					txtEmail.setText(socios.getEmail());
+					txtTelefono.setText(socios.getTelefono());		
+				}
+				
+			}
+		});
 		btnBuscar.setBounds(281, 15, 97, 25);
 		frmNuevoSocio.getContentPane().add(btnBuscar);
 	}

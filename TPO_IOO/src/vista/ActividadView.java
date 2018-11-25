@@ -9,6 +9,10 @@ import modelo.Actividad;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import controlador.ActividadVO;
+import controlador.SocioVO;
+
 import javax.swing.JButton;
 
 public class ActividadView {
@@ -19,7 +23,6 @@ public class ActividadView {
 	private JTextField txtDia;
 	private JTextField txtHora;
 	private Actividad act;
-	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -87,6 +90,18 @@ public class ActividadView {
 		txtHora.setBounds(119,242,210,28);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String t = txtTitulo.getText();
+				String d = txtDesc.getText();
+				String dia = txtDia.getText();
+				String hora = txtHora.getText();
+				
+				Actividad act = new Actividad(0,t,d,dia,hora);
+				ActividadVO actividad = new ActividadVO(act);
+				act.crearActividad(actividad);
+			}
+		});
 		frmActividades.getContentPane().add(btnAceptar);
 		btnAceptar.setBounds(21, 295, 90, 28);
 		
@@ -102,15 +117,5 @@ public class ActividadView {
 			}
 			
 		});
-		
-		
-		JLabel lblCodigo = new JLabel("Codigo");
-		lblCodigo.setBounds(21, 23, 63, 28);
-		frmActividades.getContentPane().add(lblCodigo);
-		
-		textField = new JTextField();
-		textField.setBounds(119, 20, 210, 28);
-		frmActividades.getContentPane().add(textField);
-		textField.setColumns(10);
 	}
 }

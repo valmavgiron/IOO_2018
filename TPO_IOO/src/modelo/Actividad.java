@@ -42,7 +42,8 @@ public class Actividad {
 	   		    Integer codigoActividad = Integer.parseInt(rs.getString("ID_ACTIVIDAD"));
 	   		    String titulo = rs.getString("TITULO");
 	   		    String descripcion = rs.getString("DESCRIPCION");
-	   		    String horario = rs.getString("HORARIO");
+	   		    String horario = rs.getString("HORA");
+	   		    String dia = rs.getString("DIA");
 	   		    
 	   		    actividades.add(new Actividad(codigoActividad,titulo,descripcion,horario, dia));
 	   		}	
@@ -73,10 +74,10 @@ public class Actividad {
 	   		
 			stmt = conn.getConnection().prepareStatement("INSERT INTO ACTIVIDAD VALUES (seq_actividad.currval, '"
 															+ act.getTitulo() +"', '"
-															+ act.getDescripcion() +"', "
-															+ act.getDia() + "', "
+															+ act.getDescripcion() +"', '"
+															+ act.getDia() + "', '"
 															+ act.getHorario() + ""
-																	+ ")");
+																	+ "')");
 			stmt.execute();
 			
 		}
@@ -141,8 +142,37 @@ public class Actividad {
 		}
 	}
 
-	public Actividad buscarActividad(String codigoAct) {
-		return null;
+	public Actividad buscarActividad(int codigoAct) {
+		Actividad acti = new Actividad();
+		
+		Conexion conn = Conexion.getInstance();
+		
+		PreparedStatement stmt = null; 
+		try {			
+  			
+			stmt = conn.getConnection().prepareStatement("SELECT * FROM ACTIVIDAD WHERE ID_ACTIVIDAD = '"+codigoAct+"'" );
+			ResultSet rs = stmt.executeQuery();
+	   		while (rs.next()) {
+	   			acti.codigoActividad = Integer.parseInt(rs.getString("ID_ACTIVIDAD"));
+	   			acti.titulo = rs.getString("TITULO");
+	   			acti.descripcion = rs.getString("DESCRIPCION");
+	   			acti.horario = rs.getString("HORA");
+	   			acti.dia = rs.getString("DIA");
+
+	   		    //socios = new Socio(this.id, this.nonbre,this.apellido,this.domicilio, this.telefono, this.email, this.certificado.fechaCertificado,this.certificado.medico,this.certificado.observaciones);
+	   		}	
+		}
+		catch(SQLException se) {
+			System.out.println(se);
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+		}
+		finally {
+			conn.desconectar();
+		}
+		
+		return acti;
 		
 	}
 
