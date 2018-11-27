@@ -17,6 +17,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import modelo.Abono.Tipo;
 
 public class SocioView {
 
@@ -61,7 +64,7 @@ public class SocioView {
 	private void initialize() {
 		frmNuevoSocio = new JFrame();
 		frmNuevoSocio.setTitle("Nuevo Socio");
-		frmNuevoSocio.setBounds(100, 100, 435, 497);
+		frmNuevoSocio.setBounds(100, 100, 553, 497);
 		frmNuevoSocio.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmNuevoSocio.getContentPane().setLayout(null);
 		
@@ -188,5 +191,14 @@ public class SocioView {
 		txtObs.setBounds(119, 347, 180, 28);
 		frmNuevoSocio.getContentPane().add(txtObs);
 		txtObs.setColumns(10);
+		
+		JLabel label = new JLabel("Id Codigo");
+		label.setBounds(317, 13, 56, 28);
+		frmNuevoSocio.getContentPane().add(label);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(Tipo.values()));
+		comboBox.setBounds(381, 17, 110, 20);
+		frmNuevoSocio.getContentPane().add(comboBox);
 	}
 }
