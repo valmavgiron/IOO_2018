@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
-
 import controlador.ActividadVO;
 import controlador.SocioVO;
 
@@ -23,6 +22,7 @@ public class Socio {
 	String email;
 	CertificadoMedico certificado;
 	
+	
 	public Socio(int id,String nombre, String apellido, String domicilio, String telefono, String email,java.util.Date fechaCertificado,String cert_medico,String cert_obs) {
 		this.id=id;
 		this.nombre = nombre;
@@ -30,7 +30,7 @@ public class Socio {
 		this.domicilio = domicilio;
 		this.telefono = telefono;
 		this.email = email;
-		this.certificado = new CertificadoMedico(fechaCertificado, cert_medico, cert_obs);
+		this.certificado = new CertificadoMedico(fechaCertificado, cert_medico, cert_obs,id);
 //		this.certificado.fechaCertificado=fechaCertificado;
 //		this.certificado.medico=cert_medico;
 //		this.certificado.observaciones=cert_obs;
@@ -99,9 +99,10 @@ public class Socio {
 		PreparedStatement stmt = null; 
 		try {			
 			//setamos el ID con el sequence	   		
-	   		stmt = conn.getConnection().prepareStatement("SELECT seq_socio.nextval from DUAL");
+			stmt = conn.getConnection().prepareStatement("SELECT seq_socio.nextval from DUAL");
 	   		stmt.execute();
-	   		////
+	   		
+	   		
 	   		//Insert en tabla Socio
 			stmt = conn.getConnection().prepareStatement("INSERT INTO SOCIO VALUES(seq_socio.currval, '"
 															+ socio.getNombre() +"', '"
@@ -114,6 +115,17 @@ public class Socio {
 															+ socio.getCertificado().getObservaciones() + "')");
 			stmt.execute();
 			
+	   		//stmt = conn.getConnection().prepareStatement("SELECT seq_socio.nextval from DUAL");
+     		//stmt.execute();
+	   		////
+	   		//Insert en tabla Socio
+			stmt = conn.getConnection().prepareStatement("INSERT INTO CERTIFICADO VALUES('"
+															+ fecha2  +"', '"
+															+ socio.getCertificado().getMedico() +"', '"
+															+ socio.getCertificado().getObservaciones() + "', "
+															+ "seq_socio.currval)");
+			stmt.execute();
+		
 		}
 		catch(SQLException se) {
 			System.out.println(se);
@@ -124,6 +136,31 @@ public class Socio {
 		finally {
 			conn.desconectar();
 		}
+		
+		//PreparedStatement stmt2 = null; 
+		//try {			
+			//setamos el ID con el sequence	   		
+	   		/*stmt2 = conn.getConnection().prepareStatement("SELECT seq_socio.nextval from DUAL");
+     		stmt2.execute();
+	   		////
+	   		//Insert en tabla Socio
+			stmt2 = conn.getConnection().prepareStatement("INSERT INTO CERTIFICADO VALUES('"
+															+ fecha2  +"', '"
+															+ socio.getCertificado().getMedico() +"', '"
+															+ socio.getCertificado().getObservaciones() + "', "
+															+ "seq_socio.currval'");
+			stmt2.execute();
+			
+		/*}
+		catch(SQLException se) {
+			System.out.println(se);
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+		}
+		finally {
+			conn.desconectar();
+		}*/
 	}
 	
 	public void modificarSocio(SocioVO socio)
@@ -153,13 +190,34 @@ public class Socio {
 															+"DOMICILIO = '"+ socio.getDomicilio() +"', "
 															+"TELEFONO = '"+ socio.getTelefono() +"', "
 															+"EMAIL = '"+ socio.getEmail() +"', "
-															+"CERT_FECHA = '"+ fecha2 +"', "
-															+"CERT_MEDICO = '"+ socio.getCertificado().getMedico() +"', "
-															+"CERT_OBS = '"+ socio.getCertificado().getObservaciones() +"' "
 															+"WHERE ID_SOCIO = '"+ socio.getId() +"'");
 			stmt.execute();
 			
 		}
+				
+		catch(SQLException se) {
+			System.out.println(se);
+		}
+		catch(Exception ex) {
+			System.out.println(ex);
+		}
+		finally {
+			conn.desconectar();
+		}
+		
+		PreparedStatement stmt2 = null; 
+		try {			
+	   		
+			stmt2 = conn.getConnection().prepareStatement("UPDATE CERTIFICADO SET "
+															+"CERT_FECHA = '"+ fecha2 +"', "
+															+"CERT_MEDICO = '"+ socio.getCertificado().getMedico() +"', "
+															+"CERT_OBS = '"+ socio.getCertificado().getObservaciones() +"' "
+															+"ID_SOCIO = '"+ socio.getId() +"' "
+															+"WHERE ID_SOCIO = '"+ socio.getId() +"'");
+			stmt2.execute();
+			
+		}
+				
 		catch(SQLException se) {
 			System.out.println(se);
 		}
@@ -180,6 +238,9 @@ public class Socio {
 	   		//VERIFICAR DELETE
 	   		
 			stmt = conn.getConnection().prepareStatement("DELETE FROM SOCIO WHERE ID_SOCIO = '"+ id +"'");
+			stmt.execute();
+			
+			stmt = conn.getConnection().prepareStatement("DELETE FROM CERTIFICADO WHERE ID_SOCIO = '"+ id +"'");
 			stmt.execute();
 			
 		}
@@ -268,11 +329,10 @@ public class Socio {
 	   		    socios.domicilio = rs.getString("DOMICILIO");
 	   		    socios.telefono = rs.getString("TELEFONO");
 	   		    socios.email = rs.getString("EMAIL");
-	   		    socios.certificado = new CertificadoMedico(rs.getDate("CERT_FECHA"), rs.getString("CERT_MEDICO"), rs.getString("CERT_OBS"));
+	   		    socios.certificado = new CertificadoMedico(rs.getDate("CERT_FECHA"),rs.getString("CERT_MEDICO"), rs.getString("CERT_OBS"), Integer.parseInt(rs.getString("ID_SOCIO")));
 	   		    //socios.certificado.fechaCertificado = rs.getDate("CERT_FECHA");
 	   		    //socios.certificado.medico = rs.getString("CERT_MEDICO");
 	   		    //socios.certificado.observaciones = rs.getString("CERT_OBS");
-
 	   		    //socios = new Socio(this.id, this.nonbre,this.apellido,this.domicilio, this.telefono, this.email, this.certificado.fechaCertificado,this.certificado.medico,this.certificado.observaciones);
 	   		}	
 		}

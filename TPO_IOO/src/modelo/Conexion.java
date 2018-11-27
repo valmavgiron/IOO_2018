@@ -9,7 +9,7 @@ public class Conexion {
 	static final String DB_URL = "jdbc:h2:~/test";  
 	static final String bd = "GIMNASIO";
 	static final String USER = "sa"; 
-    static final String PASS = "sa"; 
+    static final String PASS = ""; 
     
     Connection conn = null;
     

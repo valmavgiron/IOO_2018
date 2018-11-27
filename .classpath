@@ -2,5 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="TPO_IOO/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/H2/bin/h2-1.4.197.jar"/>
 	<classpathentry kind="output" path="TPO_IOO/bin"/>
 </classpath>

@@ -36,7 +36,16 @@ public class Actividad {
 		
 		PreparedStatement stmt = null; 
 		try {			
-			stmt = conn.getConnection().prepareStatement("SELECT * FROM ACTIVIDAD");
+			stmt = conn.getConnection().prepareStatement("SELECT * FROM ACTIVIDAD ORDER BY \r\n" + 
+					"     CASE \r\n" + 
+					"       WHEN DIA = 'LUNES' THEN 1 \r\n" + 
+					"       WHEN DIA = 'MARTES' THEN 2 \r\n" + 
+					"       WHEN DIA = 'MIERCOLES' THEN 3 \r\n" + 
+					"       WHEN DIA = 'JUEVES' THEN 4 \r\n" + 
+					"       WHEN DIA = 'VIERNES' THEN 5 \r\n" + 
+					"       WHEN DIA = 'SABADO' THEN 6 \r\n" + 
+					"       WHEN DIA = 'DOMINGO' THEN 7 \r\n" + 
+					"     END ASC,HORA");
 			ResultSet rs = stmt.executeQuery();
 	   		while (rs.next()) {
 	   		    Integer codigoActividad = Integer.parseInt(rs.getString("ID_ACTIVIDAD"));

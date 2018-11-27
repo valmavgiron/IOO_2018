@@ -1,5 +1,7 @@
 package controlador;
 
+import java.util.ArrayList;
+
 import modelo.Actividad;
 
 public class ActividadVO {
@@ -51,5 +53,10 @@ public class ActividadVO {
 	public void setDia(String dia) {
 		this.dia = dia;
 	}
-	
+	public ArrayList<Actividad> listarActividades() {
+		ArrayList<Actividad> actividades = new ArrayList<Actividad>();
+		Actividad a = new Actividad();
+		actividades = a.getActividades();
+		return actividades;
+	}
 }
