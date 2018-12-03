@@ -3,6 +3,11 @@ package vista;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 import modelo.Actividad;
@@ -12,9 +17,11 @@ import javax.swing.JTextField;
 
 import controlador.ActividadVO;
 import controlador.SocioVO;
+import javafx.scene.control.ComboBox;
 
 import javax.swing.JButton;
-
+import javax.swing.JComboBox;
+import modelo.*;
 public class ActividadView {
 
 	public JFrame frmActividades;
@@ -45,8 +52,8 @@ public class ActividadView {
 	 */
 	public ActividadView() {
 		initialize();
+		//llenarCombo();
 	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -108,6 +115,18 @@ public class ActividadView {
 		JButton btnCancelar = new JButton("Cancelar");
 		frmActividades.getContentPane().add(btnCancelar);
 		btnCancelar.setBounds(239, 295, 90, 28);
+		//
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(119, 28, 210, 20);
+		Actividad act = new Actividad();
+		ArrayList<Actividad> acts=new ArrayList<Actividad>();
+		Enumeration<Actividad> e=Collections.enumeration(act.getActividades());
+		while (e.hasMoreElements()) {
+			Actividad x=e.nextElement();
+			comboBox.addItem(x.getDescripcion()+"|"+x.getHorario());
+		}
+		//
+		frmActividades.getContentPane().add(comboBox);
 		btnCancelar.addActionListener(new ActionListener(){
 
 			@Override
@@ -118,4 +137,7 @@ public class ActividadView {
 			
 		});
 	}
+
 }
+
+

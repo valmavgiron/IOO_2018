@@ -45,13 +45,13 @@ public class Actividad {
 					"       WHEN DIA = 'VIERNES' THEN 5 \r\n" + 
 					"       WHEN DIA = 'SABADO' THEN 6 \r\n" + 
 					"       WHEN DIA = 'DOMINGO' THEN 7 \r\n" + 
-					"     END ASC,HORA");
+					"     END ASC,HORARIO");
 			ResultSet rs = stmt.executeQuery();
 	   		while (rs.next()) {
 	   		    Integer codigoActividad = Integer.parseInt(rs.getString("ID_ACTIVIDAD"));
 	   		    String titulo = rs.getString("TITULO");
 	   		    String descripcion = rs.getString("DESCRIPCION");
-	   		    String horario = rs.getString("HORA");
+	   		    String horario = rs.getString("HORARIO");
 	   		    String dia = rs.getString("DIA");
 	   		    
 	   		    actividades.add(new Actividad(codigoActividad,titulo,descripcion,horario, dia));
